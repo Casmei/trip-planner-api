@@ -34,6 +34,7 @@ export class ConfirmTripUseCase {
     const participants =
       await this.participantsRepository.findManyByTripId(tripId);
 
+    //todo: Criar uma TripConfirmedEvent e enviar o e-mail lá dentro
     await this.mailQueue.sendTripParticipantsConfirmationMail({
       participants,
       trip,

@@ -5,8 +5,32 @@ import type { ParticipantsRepository } from "../participants-respository";
 export class InMemoryParticipantsRespository implements ParticipantsRepository {
   public items: Participant[] = [];
 
-  async findManyByTripId(tripId: string): Promise<Participant[]> {
+  async findManyByTripId(tripId: string) {
     return this.items.filter((item) => item.trip_id === tripId);
+  }
+
+  async confirm(participantId: string) {
+    const participantIndex = this.items.findIndex(
+      (item) => item.id === participantId,
+    );
+
+    if (participantIndex >= 0) {
+      this.items[participantIndex].is_confirmed = true;
+
+      return this.items[participantIndex];
+    }
+
+    return null;
+  }
+
+  async findById(participantId: string) {
+    const participant = this.items.find((item) => item.id === participantId);
+
+    if (!participant) {
+      return null;
+    }
+
+    return participant;
   }
 
   async create(data: Prisma.ParticipantUncheckedCreateInput) {
