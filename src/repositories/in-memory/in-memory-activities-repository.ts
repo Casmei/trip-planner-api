@@ -1,0 +1,20 @@
+import { randomUUID } from "node:crypto";
+import type { Activity, Prisma } from "../../generated/prisma";
+import type { ActivitiesRepository } from "../activities-respository";
+
+export class InMemoryActivitiesRespository implements ActivitiesRepository {
+  public items: Activity[] = [];
+
+  async create(data: Prisma.ActivityUncheckedCreateInput) {
+    const activity = {
+      id: data.id ?? randomUUID(),
+      title: data.title ?? null,
+      occurs_at: new Date(data.occurs_at),
+      trip_id: data.trip_id,
+    };
+
+    this.items.push(activity);
+
+    return activity;
+  }
+}

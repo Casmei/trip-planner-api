@@ -36,4 +36,19 @@ describe("Confirm Trip Use Case", () => {
     const sutPromise = sut.execute({ participantId: "inexistent-participant" });
     await expect(sutPromise).rejects.instanceOf(ResourceNotFoundError);
   });
+
+  it("should return true if participant is already confirmed", async () => {
+    const participant = await participantsRepository.create({
+      email: "fulano@detal.com",
+      trip_id: "trip-01",
+      name: "Fulano de tal",
+      is_confirmed: true,
+    });
+
+    const participantAlreadyConfirmated = await sut.execute({
+      participantId: participant.id,
+    });
+
+    expect(participantAlreadyConfirmated).toBe(true);
+  });
 });
