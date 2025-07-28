@@ -17,4 +17,12 @@ export class InMemoryActivitiesRespository implements ActivitiesRepository {
 
     return activity;
   }
+
+  async findManyByTripId(tripId: string) {
+    return this.items
+      .filter((item) => item.trip_id === tripId)
+      .sort((a, b) => {
+        return a.occurs_at.getTime() - b.occurs_at.getTime();
+      });
+  }
 }
