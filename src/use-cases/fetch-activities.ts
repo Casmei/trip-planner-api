@@ -4,15 +4,15 @@ import type { ActivitiesRepository } from "../repositories/activities-respositor
 import type { TripsRepository } from "../repositories/trips-respository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
-interface FetchActivityUseCaseRequest {
+interface FetchActivitiesUseCaseRequest {
   trip_id: string;
 }
 
-type FetchActivityUseCaseResponse = {
+type FetchActivitiesUseCaseResponse = {
   activities: { date: Date; activities: Activity[] }[];
 };
 
-export class FetchActivityUseCase {
+export class FetchActivitiesUseCase {
   constructor(
     private tripsRepository: TripsRepository,
     private activitiesRepository: ActivitiesRepository,
@@ -20,7 +20,7 @@ export class FetchActivityUseCase {
 
   async execute({
     trip_id,
-  }: FetchActivityUseCaseRequest): Promise<FetchActivityUseCaseResponse> {
+  }: FetchActivitiesUseCaseRequest): Promise<FetchActivitiesUseCaseResponse> {
     const trip = await this.tripsRepository.findById(trip_id);
 
     if (!trip) {

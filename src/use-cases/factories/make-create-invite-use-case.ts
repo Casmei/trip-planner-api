@@ -1,18 +1,18 @@
 import { BullMQMailQueue } from "../../jobs/bullmq-mail-queue";
 import { PrismaParticipantsRepository } from "../../repositories/prisma/prisma-participants-repository";
 import { PrismaTripsRepository } from "../../repositories/prisma/prisma-trips-repository";
-import { ConfirmTripUseCase } from "../confirm-trip";
+import { CreateInviteUseCase } from "../create-invite";
 
-export function makeConfirmTripUseCase() {
+export function makeCreateInviteUseCase() {
   const prismaTripsRepository = new PrismaTripsRepository();
-  const prismaParticipantRepository = new PrismaParticipantsRepository();
+  const prismaParticipantsRepository = new PrismaParticipantsRepository();
   const mailQueue = new BullMQMailQueue();
 
-  const confirmTripUseCase = new ConfirmTripUseCase(
+  const createTripUseCase = new CreateInviteUseCase(
+    prismaParticipantsRepository,
     prismaTripsRepository,
-    prismaParticipantRepository,
     mailQueue,
   );
 
-  return confirmTripUseCase;
+  return createTripUseCase;
 }
