@@ -1,1 +1,1 @@
-![README COVER](./img/Cover.png)
+![README COVER](./img/Cover.jpg)
