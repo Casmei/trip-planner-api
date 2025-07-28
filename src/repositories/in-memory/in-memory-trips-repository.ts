@@ -1,6 +1,9 @@
 import { randomUUID } from "node:crypto";
 import type { Prisma, Trip } from "../../generated/prisma";
-import type { TripsRepository } from "../trips-respository";
+import type {
+  SimpleTripUpdateInput,
+  TripsRepository,
+} from "../trips-respository";
 
 export class InMemoryTripsRespository implements TripsRepository {
   public items: Trip[] = [];
@@ -41,5 +44,25 @@ export class InMemoryTripsRespository implements TripsRepository {
     }
 
     return null;
+  }
+
+  async update(
+    where: { id: string },
+    data: SimpleTripUpdateInput,
+  ): Promise<Trip> {
+    const index = this.items.findIndex((item) => item.id === where.id);
+    if (index === -1) throw new Error("Trip not found");
+
+    const existing = this.items[index];
+
+    const updated: Trip = {
+      ...existing,
+      destination: data.destination ?? existing.destination,
+      starts_at: data.starts_at ? new Date(data.starts_at) : existing.starts_at,
+      ends_at: data.ends_at ? new Date(data.ends_at) : existing.ends_at,
+    };
+
+    this.items[index] = updated;
+    return updated;
   }
 }
