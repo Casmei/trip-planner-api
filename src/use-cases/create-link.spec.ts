@@ -8,7 +8,7 @@ let tripsRepository: InMemoryTripsRespository;
 let linksRepository: InMemoryLinksRespository;
 let sut: CreateLinkUseCase;
 
-describe("Create Activity Use Case", () => {
+describe("Create Link Use Case", () => {
   beforeEach(async () => {
     tripsRepository = new InMemoryTripsRespository();
     linksRepository = new InMemoryLinksRespository();
