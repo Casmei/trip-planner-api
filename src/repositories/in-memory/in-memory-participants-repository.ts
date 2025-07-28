@@ -47,4 +47,10 @@ export class InMemoryParticipantsRespository implements ParticipantsRepository {
 
     return participant;
   }
+
+  async existsByEmailAndTripId(data: { email: string; tripId: string }) {
+    return this.items.some(
+      (item) => item.email === data.email && item.trip_id === data.tripId,
+    );
+  }
 }

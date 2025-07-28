@@ -3,6 +3,7 @@ import { FakeMailQueue } from "../jobs/fake-mail-queue";
 import { InMemoryParticipantsRespository } from "../repositories/in-memory/in-memory-participants-repository";
 import { InMemoryTripsRespository } from "../repositories/in-memory/in-memory-trips-repository";
 import { CreateInviteUseCase } from "./create-invite";
+import { ParticipantAlreadyInTripError } from "./errors/participant-already-in-trip-error";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 let tripsRepository: InMemoryTripsRespository;
@@ -53,5 +54,20 @@ describe("Create Invite Use Case", () => {
     });
 
     await expect(sutPromise).rejects.instanceOf(ResourceNotFoundError);
+  });
+
+  it("should not be able to invite an participant already part of the trip", async () => {
+    await participantsRepository.create({
+      email: "fulano@detal.com",
+      trip_id: "trip-01",
+      name: "Fulano de tal",
+    });
+
+    const sutPromise = sut.execute({
+      participantEmail: "fulano@detal.com",
+      tripId: "trip-01",
+    });
+
+    await expect(sutPromise).rejects.instanceOf(ParticipantAlreadyInTripError);
   });
 });
