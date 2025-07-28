@@ -1,5 +1,5 @@
 import { BullMQMailQueue } from "../../jobs/bullmq-mail-queue";
-import { PrismaParticipantRepository } from "../../repositories/prisma/prisma-participant-repository";
+import { PrismaParticipantRepository } from "../../repositories/prisma/prisma-links-repository";
 import { PrismaTripsRepository } from "../../repositories/prisma/prisma-trips-repository";
 import { ConfirmTripUseCase } from "../confirm-trip";
 
