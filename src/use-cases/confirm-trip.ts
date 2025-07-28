@@ -22,6 +22,7 @@ export class ConfirmTripUseCase {
     const trip = await this.tripsRepository.findById(tripId);
 
     if (!trip) {
+      console.log("aa");
       throw new ResourceNotFoundError();
     }
 

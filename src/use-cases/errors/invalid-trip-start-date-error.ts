@@ -1,5 +1,5 @@
 export class InvalidTripStartDateError extends Error {
   constructor() {
-    super("Trip end date must be after the start date");
+    super("Trip start date must be after the today");
   }
 }
