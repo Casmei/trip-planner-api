@@ -16,4 +16,8 @@ export class InMemoryLinksRespository implements LinksRepository {
     this.items.push(link);
     return link;
   }
+
+  async findManyByTripId(tripId: string) {
+    return this.items.filter((item) => item.trip_id === tripId);
+  }
 }
