@@ -1,18 +1,15 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { FakeMailQueue } from "../jobs/fake-mail-queue";
 import { InMemoryParticipantsRespository } from "../repositories/in-memory/in-memory-participants-repository";
 import { ConfirmParticipantUseCase } from "./confirm-participant";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 let participantsRepository: InMemoryParticipantsRespository;
-let fakeMailQueue: FakeMailQueue;
 let sut: ConfirmParticipantUseCase;
 
 describe("Confirm Trip Use Case", () => {
   beforeEach(async () => {
     participantsRepository = new InMemoryParticipantsRespository();
-    fakeMailQueue = new FakeMailQueue();
-    sut = new ConfirmParticipantUseCase(participantsRepository, fakeMailQueue);
+    sut = new ConfirmParticipantUseCase(participantsRepository);
   });
 
   it("should be able to confirm a participant", async () => {

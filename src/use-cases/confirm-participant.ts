@@ -1,4 +1,3 @@
-import type { MailQueue } from "../jobs/mail-queue-interface";
 import type { ParticipantsRepository } from "../repositories/participants-respository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
@@ -9,10 +8,7 @@ interface ConfirmParticipantUseCaseRequest {
 type ConfirmParticipantUseCaseResponse = boolean;
 
 export class ConfirmParticipantUseCase {
-  constructor(
-    private participantsRepository: ParticipantsRepository,
-    private mailQueue: MailQueue,
-  ) {}
+  constructor(private participantsRepository: ParticipantsRepository) {}
 
   async execute({
     participantId,
