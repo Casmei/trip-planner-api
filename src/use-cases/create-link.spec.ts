@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryLinksRespository } from "../repositories/in-memory/in-memory-links-repository";
 import { InMemoryTripsRespository } from "../repositories/in-memory/in-memory-trips-repository";
 import { CreateLinkUseCase } from "./create-link";
