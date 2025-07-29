@@ -32,7 +32,7 @@ describe("Update Trip Use Case", () => {
       destination: "Alemanha",
       starts_at: new Date("2025-08-01 18:00:00"),
       ends_at: new Date("2025-08-10 18:00:00"),
-      tripId: "trip-01",
+      trip_id: "trip-01",
     });
 
     expect(trip.id).toEqual("trip-01");
@@ -46,7 +46,7 @@ describe("Update Trip Use Case", () => {
       destination: "Portugal",
       starts_at: new Date("2025-07-10 18:00:00"),
       ends_at: new Date("2025-07-15 18:00:00"),
-      tripId: "trip-01",
+      trip_id: "trip-01",
     });
 
     await expect(() => sutPromise).rejects.toBeInstanceOf(
@@ -61,7 +61,7 @@ describe("Update Trip Use Case", () => {
       destination: "Portugal",
       starts_at: new Date("2025-08-10 18:00:00"),
       ends_at: new Date("2025-07-15 18:00:00"),
-      tripId: "trip-01",
+      trip_id: "trip-01",
     });
 
     await expect(() => sutPromise).rejects.toBeInstanceOf(

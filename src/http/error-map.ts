@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
-import { InvalidTripEndDateError } from "../../use-cases/errors/invalid-trip-end-date-error";
-import { InvalidTripStartDateError } from "../../use-cases/errors/invalid-trip-start-date-error";
-import { ResourceNotFoundError } from "../../use-cases/errors/resource-not-found-error";
+import { InvalidTripEndDateError } from "../use-cases/errors/invalid-trip-end-date-error";
+import { InvalidTripStartDateError } from "../use-cases/errors/invalid-trip-start-date-error";
+import { ResourceNotFoundError } from "../use-cases/errors/resource-not-found-error";
 
 export const errorMap = new Map([
   [

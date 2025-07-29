@@ -1,7 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { StatusCodes } from "http-status-codes";
 import { z } from "zod";
 import { makeCreateTripUseCase } from "../../use-cases/factories/make-create-trip-use-case";
-import { errorMap } from "./error-map";
+import { errorMap } from "../error-map";
 
 export async function createTrip(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -34,7 +35,7 @@ export async function createTrip(request: FastifyRequest, reply: FastifyReply) {
       emails_to_invite,
     });
 
-    return reply.status(201).send();
+    return reply.status(StatusCodes.CREATED).send();
   } catch (error) {
     for (const [ErrorClass, { status, message }] of errorMap.entries()) {
       if (error instanceof ErrorClass) {

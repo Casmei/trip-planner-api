@@ -5,7 +5,7 @@ import { InvalidTripStartDateError } from "./errors/invalid-trip-start-date-erro
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 interface UpdateTripUseCaseRequest {
-  tripId: string;
+  trip_id: string;
   starts_at: Date;
   ends_at: Date;
   destination: string;
@@ -20,9 +20,9 @@ export class UpdateTripUseCase {
     destination,
     starts_at,
     ends_at,
-    tripId,
+    trip_id,
   }: UpdateTripUseCaseRequest): Promise<UpdateTripUseCaseResponse> {
-    const trip = await this.tripsRepository.findById(tripId);
+    const trip = await this.tripsRepository.findById(trip_id);
 
     if (!trip) {
       throw new ResourceNotFoundError();

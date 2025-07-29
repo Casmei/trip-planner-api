@@ -3,11 +3,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { InMemoryActivitiesRespository } from "../repositories/in-memory/in-memory-activities-repository";
 import { InMemoryTripsRespository } from "../repositories/in-memory/in-memory-trips-repository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
-import { FetchActivityUseCase } from "./fetch-activities";
+import { FetchActivitiesUseCase } from "./fetch-activities";
 
 let tripsRepository: InMemoryTripsRespository;
 let activitiesRepository: InMemoryActivitiesRespository;
-let sut: FetchActivityUseCase;
+let sut: FetchActivitiesUseCase;
 
 describe("Fetch Activities Use Case", () => {
   beforeEach(async () => {
@@ -16,7 +16,7 @@ describe("Fetch Activities Use Case", () => {
 
     tripsRepository = new InMemoryTripsRespository();
     activitiesRepository = new InMemoryActivitiesRespository();
-    sut = new FetchActivityUseCase(tripsRepository, activitiesRepository);
+    sut = new FetchActivitiesUseCase(tripsRepository, activitiesRepository);
 
     await tripsRepository.create({
       id: "trip-01",

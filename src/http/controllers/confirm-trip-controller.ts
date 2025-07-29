@@ -1,9 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { env } from "../../config/env";
-import { ResourceNotFoundError } from "../../use-cases/errors/resource-not-found-error";
 import { makeConfirmTripUseCase } from "../../use-cases/factories/make-confirm-trip-use-case";
-import { errorMap } from "./error-map";
+import { errorMap } from "../error-map";
 
 export async function confirmTrip(
   request: FastifyRequest,
