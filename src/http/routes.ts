@@ -1,6 +1,10 @@
 import type { FastifyInstance } from "fastify";
+import { confirmParticipant } from "./controllers/confirm-participant-controller";
 import { confirmTrip } from "./controllers/confirm-trip-controller";
+import { createInvite } from "./controllers/create-invite-controller";
 import { createTrip } from "./controllers/create-trip-controller";
+import { fetchParticipants } from "./controllers/fetch-participants-controller";
+import { getParticipant } from "./controllers/get-participant-controller";
 import { getTripDetails } from "./controllers/get-trip-details-controller";
 import { updateTrip } from "./controllers/update-trip-controller";
 
@@ -10,4 +14,10 @@ export async function routes(app: FastifyInstance) {
   app.patch("/trips/:tripId", updateTrip);
   app.get("/trips/:tripId/confirm", confirmTrip);
   app.get("/trips/:tripId", getTripDetails);
+  app.post("/trips/:tripId/invites", createInvite);
+
+  //PARTICIPANT
+  app.get("/participants/:participantId/confirm", confirmParticipant);
+  app.get("/trips/:tripId/participants/:participantId", getParticipant);
+  app.get("/trips/:tripId/participants", fetchParticipants);
 }

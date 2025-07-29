@@ -13,20 +13,17 @@ describe("Confirm Trip Use Case", () => {
   });
 
   it("should be able to confirm a participant", async () => {
-    const participant = await participantsRepository.create({
+    const { id: participantId } = await participantsRepository.create({
       email: "fulano@detal.com",
       trip_id: "trip-01",
       name: "Fulano de tal",
     });
 
-    const participantIsConfirmed = await sut.execute({
-      participantId: participant.id,
+    const { participant } = await sut.execute({
+      participantId: participantId,
     });
 
-    const confirmation = await participantsRepository.findById(participant.id);
-
-    expect(participantIsConfirmed).toBe(true);
-    expect(confirmation?.is_confirmed).toEqual(true);
+    expect(participant.is_confirmed).toBe(true);
   });
 
   it("should not be able to confirm an inexistent participant", async () => {
@@ -35,17 +32,17 @@ describe("Confirm Trip Use Case", () => {
   });
 
   it("should return true if participant is already confirmed", async () => {
-    const participant = await participantsRepository.create({
+    const { id: participantId } = await participantsRepository.create({
       email: "fulano@detal.com",
       trip_id: "trip-01",
       name: "Fulano de tal",
       is_confirmed: true,
     });
 
-    const participantAlreadyConfirmated = await sut.execute({
-      participantId: participant.id,
+    const { participant } = await sut.execute({
+      participantId: participantId,
     });
 
-    expect(participantAlreadyConfirmated).toBe(true);
+    expect(participant.is_confirmed).toBe(true);
   });
 });

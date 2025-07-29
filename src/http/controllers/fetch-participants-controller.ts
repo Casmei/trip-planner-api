@@ -1,0 +1,32 @@
+import type { FastifyReply, FastifyRequest } from "fastify";
+import { StatusCodes } from "http-status-codes";
+import { z } from "zod";
+import { makeFetchParticipantsUseCase } from "../../use-cases/factories/make-fetch-participants-use-case";
+import { errorMap } from "../error-map";
+
+export async function fetchParticipants(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const confirmParticipantParamSchema = z.object({
+    tripId: z.uuid(),
+  });
+
+  const { tripId } = confirmParticipantParamSchema.parse(request.params);
+
+  const useCase = makeFetchParticipantsUseCase();
+
+  try {
+    const { participants } = await useCase.execute({ trip_id: tripId });
+
+    return reply.status(StatusCodes.OK).send(participants);
+  } catch (error) {
+    for (const [ErrorClass, { status, message }] of errorMap.entries()) {
+      if (error instanceof ErrorClass) {
+        return reply.status(status).send({ message });
+      }
+    }
+
+    throw error;
+  }
+}

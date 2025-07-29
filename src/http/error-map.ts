@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { InvalidTripEndDateError } from "../use-cases/errors/invalid-trip-end-date-error";
 import { InvalidTripStartDateError } from "../use-cases/errors/invalid-trip-start-date-error";
+import { ParticipantAlreadyInTripError } from "../use-cases/errors/participant-already-in-trip-error";
 import { ResourceNotFoundError } from "../use-cases/errors/resource-not-found-error";
 
 export const errorMap = new Map([
@@ -23,6 +24,13 @@ export const errorMap = new Map([
     {
       status: StatusCodes.NOT_FOUND,
       message: new ResourceNotFoundError().message,
+    },
+  ],
+  [
+    ParticipantAlreadyInTripError,
+    {
+      status: StatusCodes.CONFLICT,
+      message: new ParticipantAlreadyInTripError().message,
     },
   ],
 ]);

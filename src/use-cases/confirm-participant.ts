@@ -1,3 +1,4 @@
+import { Participant } from "../generated/prisma";
 import type { ParticipantsRepository } from "../repositories/participants-respository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
@@ -5,7 +6,7 @@ interface ConfirmParticipantUseCaseRequest {
   participantId: string;
 }
 
-type ConfirmParticipantUseCaseResponse = boolean;
+type ConfirmParticipantUseCaseResponse = { participant: Participant };
 
 export class ConfirmParticipantUseCase {
   constructor(private participantsRepository: ParticipantsRepository) {}
@@ -21,11 +22,11 @@ export class ConfirmParticipantUseCase {
     }
 
     if (participant.is_confirmed) {
-      return true;
+      return { participant };
     }
 
     await this.participantsRepository.confirm(participantId);
 
-    return true;
+    return { participant };
   }
 }
