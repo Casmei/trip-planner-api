@@ -2,10 +2,10 @@ import fastify from "fastify";
 import "dotenv/config";
 import { ZodError } from "zod";
 import { env } from "./config/env";
-import { tripRoutes } from "./http/trip-routes";
+import { routes } from "./http/routes";
 
 export const app = fastify();
-app.register(tripRoutes);
+app.register(routes);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
