@@ -2,14 +2,15 @@
 	"name": "planner",
 	"version": "1.0.0",
 	"description": "",
-	"main": "server.js",
+	"main": "build/server.js",
 	"scripts": {
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"dev": "tsx watch src/server.ts",
-		"build": "tsup src --out-dir build",
+		"build": "tsup",
 		"start": "node build/server.js",
+		"db:deploy": "npx prisma migrate deploy && npx prisma generate",
 		"dev:worker": "tsx src/worker.ts"
 	},
 	"keywords": [],

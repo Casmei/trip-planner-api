@@ -6,4 +6,9 @@ export const env = cleanEnv(process.env, {
   FRONT_PORT: num({ default: 3001 }),
   FRONT_HOST: str({ default: "http://localhost" }),
   NODE_ENV: str({ choices: ["development", "production"] }),
+  DATABASE_URL: str({
+    default: "postgresql://calidade:calidade@localhost:5482/trip-planner",
+  }),
+  REDIS_HOST: str({ default: "localhost" }),
+  REDIS_PORT: num({ default: 6379 }),
 });

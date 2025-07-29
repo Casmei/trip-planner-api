@@ -3,9 +3,9 @@
 ![Unit Testing Coverage](badge.svg)
 
 > Todo list
-- [ ] Criar dockerfile e melhorar o docker compose
+- [x] Criar dockerfile e melhorar o docker compose
 - [ ] Adicionar cors
-- [ ] Remover o sqlite e passar a usar o postgres
+- [x] Remover o sqlite e passar a usar o postgres
 - [ ] Remover do historico do git o sqlite
 - [ ] Criar um readme, ensinando como subir o projeto
 - [ ] Validar o BullMq e sua implementação

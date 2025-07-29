@@ -1,7 +1,8 @@
 import { Redis } from "ioredis";
+import { env } from "../config/env";
 
 export const redis = new Redis({
-  host: "localhost",
-  port: 6379,
-  maxRetriesPerRequest: null, // ⬅️ necessário para BullMQ
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
+  maxRetriesPerRequest: null,
 });
