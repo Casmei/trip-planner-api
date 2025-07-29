@@ -1,0 +1,354 @@
+type: collection.insomnia.rest/5.0
+name: Trip Planning
+meta:
+  id: wrk_2ab29c8c091c41b2a5038066e5de18e2
+  created: 1753745443776
+  modified: 1753745443776
+  description: ""
+collection:
+  - name: Trips
+    meta:
+      id: fld_b144c8ee604b4fe797851e043ddea83a
+      created: 1753745457865
+      modified: 1753745457865
+      sortKey: -1753745457865
+      description: ""
+    children:
+      - name: Participant
+        meta:
+          id: fld_86c5065ff4f54105872a94fad77bdc0e
+          created: 1753750547285
+          modified: 1753759541892
+          sortKey: -1753750547285
+          description: ""
+        children:
+          - url: localhost:3000/participants/e8609e33-6070-4e3c-b37d-71e8aa1a6bd2/confirm
+            name: Confirm Participant Trip
+            meta:
+              id: req_5be56e6acf9e45e39f3fad02ad7f7025
+              created: 1753750549836
+              modified: 1753758320196
+              isPrivate: false
+              description: ""
+              sortKey: -1753750549836
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/participants/475f463b-30eb-4d41-9af4-ed4eaffc336c
+            name: Get Participant
+            meta:
+              id: req_1a65367717c148a190a9f96ae2777356
+              created: 1753757392112
+              modified: 1753757488170
+              isPrivate: false
+              description: ""
+              sortKey: -1753757392112
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/participants
+            name: Fetch Participants
+            meta:
+              id: req_d1be0f67a3754f1b8bdccc5f336bf11c
+              created: 1753757683788
+              modified: 1753757688548
+              isPrivate: false
+              description: ""
+              sortKey: -1753753970974
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Activity
+        meta:
+          id: fld_8c6cf2f28d174a9dbb9681712f3cc8df
+          created: 1753759067213
+          modified: 1753759067213
+          sortKey: -1753759067213
+          description: ""
+        children:
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/activities
+            name: Create Activity
+            meta:
+              id: req_a5cb58cff75b48ac9dde9645f9e90193
+              created: 1753759074066
+              modified: 1753759160822
+              isPrivate: false
+              description: ""
+              sortKey: -1753759074066
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"title": "Observar os passaros",
+                	"occurs_at": "2025-08-09T13:00:00.000Z"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/activities
+            name: Fetch Activities
+            meta:
+              id: req_850d258ad0654fefad3a65cf1035a116
+              created: 1753759173529
+              modified: 1753759182448
+              isPrivate: false
+              description: ""
+              sortKey: -1753758233089
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Link
+        meta:
+          id: fld_fa99ff24cdad4d26aac431e6ac263eaa
+          created: 1753759528480
+          modified: 1753759528480
+          sortKey: -1753754807249
+          description: ""
+        children:
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/links
+            name: Create Link
+            meta:
+              id: req_3aa765b54c2648d89f970d464625573b
+              created: 1753759528481
+              modified: 1753759632808
+              isPrivate: false
+              description: ""
+              sortKey: -1753759074066
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"title": "Google maps",
+                	"url": "https://maps.app.goo.gl/W2XALGkXbiASymXp8"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/links
+            name: Fetch Links
+            meta:
+              id: req_fcde348fbc3a46768dcf303cbd8abf2e
+              created: 1753759528482
+              modified: 1753759646693
+              isPrivate: false
+              description: ""
+              sortKey: -1753758233089
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - url: http://localhost:3000/trips
+        name: Create Trip
+        meta:
+          id: req_bcd4f61e37ba4a4daa77e30782c82861
+          created: 1753745494945
+          modified: 1753802856721
+          isPrivate: false
+          description: ""
+          sortKey: -1753745516794
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"destination": "Mata Escura - Jequitionha",
+            	"starts_at": "2025-08-09T08:00:00",
+            	"ends_at": "2025-08-10T18:00:00",
+            	"owner_name": "Tiago de Castro Lima",
+            	"owner_email": "casmei@protonmail.com",
+            	"emails_to_invite": ["ana@claro.com"]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:3000/trips/e8609e33-6070-4e3c-b37d-71e8aa1a6bd2/confirm
+        name: Confirm Trip
+        meta:
+          id: req_0e6e41f65b3845ceb0bb9585b0abbbd8
+          created: 1753745798051
+          modified: 1753758304210
+          isPrivate: false
+          description: ""
+          sortKey: -1753745798051
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56
+        name: Update Trip
+        meta:
+          id: req_ef5c998fefb844b4b7d3198d5fc911ae
+          created: 1753747748912
+          modified: 1753747906221
+          isPrivate: false
+          description: ""
+          sortKey: -1753356088653
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"destination": "Mata Escura - Brasil",
+            	"starts_at": "2025-08-09T08:00:00",
+            	"ends_at": "2025-08-10T18:00:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:3000/trips/d20bf5ae-cdd0-45c5-b063-f9c4ff902901
+        name: Get Trip Detail
+        meta:
+          id: req_fe06a0b2a640444ca716f399ca00244e
+          created: 1753748276636
+          modified: 1753802939360
+          isPrivate: false
+          description: ""
+          sortKey: -1753745657422.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:3000/trips/b268fb43-7277-4494-b7ea-5858ea308c56/invites
+        name: Create Invite
+        meta:
+          id: req_3c786271605445aaa1f8f7cf092c3100
+          created: 1753758067024
+          modified: 1753758235668
+          isPrivate: false
+          description: ""
+          sortKey: -1753745727736.75
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "paloma@xoxo.com"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_6bcc96aadf75eb877ee01a52435c968cbbf52deb
+    created: 1753745443783
+    modified: 1753745443783
+environments:
+  name: Base Environment
+  meta:
+    id: env_6bcc96aadf75eb877ee01a52435c968cbbf52deb
+    created: 1753745443781
+    modified: 1753745443781
+    isPrivate: false
