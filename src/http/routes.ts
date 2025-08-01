@@ -1,4 +1,6 @@
 import type { FastifyInstance } from "fastify";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
+import z from "zod";
 import { confirmParticipant } from "./controllers/confirm-participant-controller";
 import { confirmTrip } from "./controllers/confirm-trip-controller";
 import { createActivity } from "./controllers/create-activity-controller";
@@ -11,25 +13,203 @@ import { fetchParticipants } from "./controllers/fetch-participants-controller";
 import { getParticipant } from "./controllers/get-participant-controller";
 import { getTripDetails } from "./controllers/get-trip-details-controller";
 import { updateTrip } from "./controllers/update-trip-controller";
+import {
+  createActivityBodySchema,
+  createActivityParamsSchema,
+  fetchActivitiesParamsSchema,
+  fetchActivitiesResponseSchema,
+} from "./schemas/activity";
+import {
+  createLinkBodySchema,
+  createLinkParamsSchema,
+  fetchLinksParamsSchema,
+  fetchLinksResponseSchema,
+} from "./schemas/link";
+import {
+  confirmParticipantParamsSchema,
+  fetchParticipantsParamsSchema,
+  fetchParticipantsResponseSchema,
+  getParticipantParamsSchema,
+  participantSchema,
+} from "./schemas/participant";
+import {
+  confirmTripParamsSchema,
+  createInviteBodySchema,
+  createInviteParamsSchema,
+  createTripSchema,
+  getTripDetailsParamsSchema,
+  tripSchema,
+  updateTripBodySchema,
+  updateTripParamsSchema,
+} from "./schemas/trip";
 
 export async function routes(app: FastifyInstance) {
-  //TRIP
-  app.post("/trips", createTrip);
-  app.patch("/trips/:tripId", updateTrip);
-  app.get("/trips/:tripId/confirm", confirmTrip);
-  app.get("/trips/:tripId", getTripDetails);
-  app.post("/trips/:tripId/invites", createInvite);
+  app.post(
+    "/trips",
+    {
+      schema: {
+        tags: ["Trip"],
+        body: createTripSchema,
+        response: {
+          201: z.null(),
+        },
+      },
+    },
+    createTrip,
+  );
 
-  //ACTIVITY
-  app.get("/trips/:tripId/activities", fetchActivities);
-  app.post("/trips/:tripId/activities", createActivity);
+  app.patch(
+    "/trips/:tripId",
+    {
+      schema: {
+        tags: ["Trip"],
+        params: updateTripParamsSchema,
+        body: updateTripBodySchema,
+        response: {
+          204: z.null(),
+        },
+      },
+    },
+    updateTrip,
+  );
 
-  //LINK
-  app.get("/trips/:tripId/links", fetchLinks);
-  app.post("/trips/:tripId/links", createLink);
+  app.get(
+    "/trips/:tripId",
+    {
+      schema: {
+        tags: ["Trip"],
+        params: getTripDetailsParamsSchema,
+        response: {
+          200: tripSchema,
+        },
+      },
+    },
+    getTripDetails,
+  );
+
+  app.get(
+    "/trips/:tripId/confirm",
+    {
+      schema: {
+        tags: ["Trip"],
+        params: confirmTripParamsSchema,
+        response: {
+          302: z.null(),
+        },
+      },
+    },
+    confirmTrip,
+  );
+
+  app.post(
+    "/trips/:tripId/invites",
+    {
+      schema: {
+        tags: ["Trip"],
+        params: createInviteParamsSchema,
+        body: createInviteBodySchema,
+        response: {
+          201: z.null(), // resposta vazia
+        },
+      },
+    },
+    createInvite,
+  );
+
+  app.get(
+    "/trips/:tripId/activities",
+    {
+      schema: {
+        tags: ["Activity"],
+        params: fetchActivitiesParamsSchema,
+        response: {
+          200: fetchActivitiesResponseSchema,
+        },
+      },
+    },
+    fetchActivities,
+  );
+  app.post(
+    "/trips/:tripId/activities",
+    {
+      schema: {
+        tags: ["Activity"],
+        params: createActivityParamsSchema,
+        body: createActivityBodySchema,
+        response: {
+          201: z.null(),
+        },
+      },
+    },
+    createActivity,
+  );
+
+  app.get(
+    "/trips/:tripId/links",
+    {
+      schema: {
+        tags: ["Link"],
+        params: fetchLinksParamsSchema,
+        response: {
+          200: fetchLinksResponseSchema,
+        },
+      },
+    },
+    fetchLinks,
+  );
+  app.post(
+    "/trips/:tripId/links",
+    {
+      schema: {
+        tags: ["Link"],
+        params: createLinkParamsSchema,
+        body: createLinkBodySchema,
+        response: {
+          201: z.null(),
+        },
+      },
+    },
+    createLink,
+  );
 
   //PARTICIPANT
-  app.get("/participants/:participantId/confirm", confirmParticipant);
-  app.get("/trips/:tripId/participants/:participantId", getParticipant);
-  app.get("/trips/:tripId/participants", fetchParticipants);
+  app.get(
+    "/participants/:participantId/confirm",
+    {
+      schema: {
+        tags: ["Participant"],
+        params: confirmParticipantParamsSchema,
+        response: {
+          302: z.null(),
+        },
+      },
+    },
+    confirmParticipant,
+  );
+  app.get(
+    "/trips/:tripId/participants/:participantId",
+    {
+      schema: {
+        tags: ["Participant"],
+        params: getParticipantParamsSchema,
+        response: {
+          200: participantSchema,
+        },
+      },
+    },
+    getParticipant,
+  );
+  app.get(
+    "/trips/:tripId/participants",
+    {
+      schema: {
+        tags: ["Participant"],
+        params: fetchParticipantsParamsSchema,
+        response: {
+          200: fetchParticipantsResponseSchema,
+        },
+      },
+    },
+    fetchParticipants,
+  );
 }

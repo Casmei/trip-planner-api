@@ -1,19 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 import { env } from "../../config/env";
 import { makeConfirmParticipantUseCase } from "../../use-cases/factories/make-confirm-participant-use-case";
 import { errorMap } from "../error-map";
+import type { ConfirmParticipantParams } from "../schemas/participant";
 
 export async function confirmParticipant(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: ConfirmParticipantParams }>,
   reply: FastifyReply,
 ) {
-  const confirmParticipantParamSchema = z.object({
-    participantId: z.uuid(),
-  });
-
-  const { participantId } = confirmParticipantParamSchema.parse(request.params);
-
+  const { participantId } = request.params;
   const useCase = makeConfirmParticipantUseCase();
 
   try {

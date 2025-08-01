@@ -1,18 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeFetchActivitiesUseCase } from "../../use-cases/factories/make-fetch-activities-use-case";
 import { errorMap } from "../error-map";
+import type { FetchActivitiesParams } from "../schemas/activity";
 
 export async function fetchActivities(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: FetchActivitiesParams }>,
   reply: FastifyReply,
 ) {
-  const createActivityParamsSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { tripId } = createActivityParamsSchema.parse(request.params);
+  const { tripId } = request.params;
   const useCase = makeFetchActivitiesUseCase();
 
   try {

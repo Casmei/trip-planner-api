@@ -1,22 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeGetParticipantUseCase } from "../../use-cases/factories/make-get-participant-use-case";
 import { errorMap } from "../error-map";
+import type { GetParticipantParams } from "../schemas/participant";
 
 export async function getParticipant(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: GetParticipantParams }>,
   reply: FastifyReply,
 ) {
-  const confirmParticipantParamSchema = z.object({
-    participantId: z.uuid(),
-    tripId: z.uuid(),
-  });
-
-  const { participantId, tripId } = confirmParticipantParamSchema.parse(
-    request.params,
-  );
-
+  const { participantId, tripId } = request.params;
   const useCase = makeGetParticipantUseCase();
 
   try {

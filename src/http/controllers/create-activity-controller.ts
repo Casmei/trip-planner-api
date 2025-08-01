@@ -1,25 +1,21 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeCreateActivityUseCase } from "../../use-cases/factories/make-create-activity-use-case";
 import { errorMap } from "../error-map";
+import type {
+  CreateActivityBody,
+  CreateActivityParams,
+} from "../schemas/activity";
 
 export async function createActivity(
-  request: FastifyRequest,
+  request: FastifyRequest<{
+    Params: CreateActivityParams;
+    Body: CreateActivityBody;
+  }>,
   reply: FastifyReply,
 ) {
-  const createActivityBodySchema = z.object({
-    title: z.string().min(4),
-    occurs_at: z.coerce.date(),
-  });
-
-  const createActivityParamsSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { occurs_at, title } = createActivityBodySchema.parse(request.body);
-  const { tripId } = createActivityParamsSchema.parse(request.params);
-
+  const { occurs_at, title } = request.body;
+  const { tripId } = request.params;
   const useCase = makeCreateActivityUseCase();
 
   try {

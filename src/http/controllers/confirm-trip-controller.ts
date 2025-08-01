@@ -1,19 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 import { env } from "../../config/env";
 import { makeConfirmTripUseCase } from "../../use-cases/factories/make-confirm-trip-use-case";
 import { errorMap } from "../error-map";
+import type { ConfirmTripParams } from "../schemas/trip";
 
 export async function confirmTrip(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: ConfirmTripParams }>,
   reply: FastifyReply,
 ) {
-  const registerParamSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { tripId } = registerParamSchema.parse(request.params);
-
+  const { tripId } = request.params;
   const confirmTripUseCase = makeConfirmTripUseCase();
 
   try {

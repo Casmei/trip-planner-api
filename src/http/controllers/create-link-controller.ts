@@ -1,21 +1,18 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeCreateLinkUseCase } from "../../use-cases/factories/make-create-link-use-case";
 import { errorMap } from "../error-map";
+import type { CreateLinkBody, CreateLinkParams } from "../schemas/link";
 
-export async function createLink(request: FastifyRequest, reply: FastifyReply) {
-  const createLinkBodySchema = z.object({
-    title: z.string().min(4),
-    url: z.url(),
-  });
-
-  const createActivityParamsSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { url, title } = createLinkBodySchema.parse(request.body);
-  const { tripId } = createActivityParamsSchema.parse(request.params);
+export async function createLink(
+  request: FastifyRequest<{
+    Params: CreateLinkParams;
+    Body: CreateLinkBody;
+  }>,
+  reply: FastifyReply,
+) {
+  const { url, title } = request.body;
+  const { tripId } = request.params;
 
   const useCase = makeCreateLinkUseCase();
 

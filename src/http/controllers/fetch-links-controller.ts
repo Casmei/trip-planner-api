@@ -1,15 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeFetchLinksUseCase } from "../../use-cases/factories/make-fetch-links-use-case";
 import { errorMap } from "../error-map";
+import type { FetchLinksParams } from "../schemas/link";
 
-export async function fetchLinks(request: FastifyRequest, reply: FastifyReply) {
-  const fetchLinksParamsSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { tripId } = fetchLinksParamsSchema.parse(request.params);
+export async function fetchLinks(
+  request: FastifyRequest<{ Params: FetchLinksParams }>,
+  reply: FastifyReply,
+) {
+  const { tripId } = request.params;
   const useCase = makeFetchLinksUseCase();
 
   try {

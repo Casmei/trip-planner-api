@@ -1,25 +1,19 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeUpdateTripUseCase } from "../../use-cases/factories/make-update-trip-use-case";
 import { errorMap } from "../error-map";
+import type { UpdateTripBody, UpdateTripParams } from "../schemas/trip";
 
-export async function updateTrip(request: FastifyRequest, reply: FastifyReply) {
-  const updateTripBodySchema = z.object({
-    destination: z.string().min(4),
-    starts_at: z.coerce.date(),
-    ends_at: z.coerce.date(),
-  });
+export async function updateTrip(
+  request: FastifyRequest<{
+    Params: UpdateTripParams;
+    Body: UpdateTripBody;
+  }>,
+  reply: FastifyReply,
+) {
+  const { destination, starts_at, ends_at } = request.body;
+  const { tripId } = request.params;
 
-  const updateTripParamSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { destination, starts_at, ends_at } = updateTripBodySchema.parse(
-    request.body,
-  );
-
-  const { tripId } = updateTripParamSchema.parse(request.params);
   const updateTripUseCase = makeUpdateTripUseCase();
 
   try {

@@ -1,19 +1,13 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeCreateTripUseCase } from "../../use-cases/factories/make-create-trip-use-case";
 import { errorMap } from "../error-map";
+import type { CreateTripInput } from "../schemas/trip";
 
-export async function createTrip(request: FastifyRequest, reply: FastifyReply) {
-  const registerBodySchema = z.object({
-    destination: z.string().min(4),
-    starts_at: z.coerce.date(),
-    ends_at: z.coerce.date(),
-    owner_name: z.string(),
-    owner_email: z.email(),
-    emails_to_invite: z.array(z.email()),
-  });
-
+export async function createTrip(
+  request: FastifyRequest<{ Body: CreateTripInput }>,
+  reply: FastifyReply,
+) {
   const {
     destination,
     starts_at,
@@ -21,7 +15,7 @@ export async function createTrip(request: FastifyRequest, reply: FastifyReply) {
     owner_name,
     owner_email,
     emails_to_invite,
-  } = registerBodySchema.parse(request.body);
+  } = request.body;
 
   const createTripUseCase = makeCreateTripUseCase();
 

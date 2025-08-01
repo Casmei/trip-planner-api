@@ -1,18 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
-import { z } from "zod";
 import { makeGetTripDetailsUseCase } from "../../use-cases/factories/make-get-trip-details-use-case";
 import { errorMap } from "../error-map";
+import type { GetTripDetailsParams } from "../schemas/trip";
 
 export async function getTripDetails(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: GetTripDetailsParams }>,
   reply: FastifyReply,
 ) {
-  const getTripDetailsParamSchema = z.object({
-    tripId: z.uuid(),
-  });
-
-  const { tripId } = getTripDetailsParamSchema.parse(request.params);
+  const { tripId } = request.params;
   const getTripDetailsUseCase = makeGetTripDetailsUseCase();
 
   try {
