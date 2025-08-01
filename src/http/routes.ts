@@ -237,7 +237,7 @@ export async function routes(app: FastifyInstance) {
       let redisStatus = "ok";
 
       try {
-        await prisma.$queryRaw`SELECT 1`;
+        await prisma.$connect(); // apenas tenta conectar
       } catch (err) {
         dbStatus = `error: ${err instanceof Error ? err.message : "unknown"}`;
       }
