@@ -1,15 +1,12 @@
 import fastify from "fastify";
 import "dotenv/config";
-import fastifyStatic from "@fastify/static";
 import fastifySwagger from "@fastify/swagger";
 import scalarDocs from "@scalar/fastify-api-reference";
-import fastifyFavicon from "fastify-favicon";
 import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import path from "path";
 import { ZodError } from "zod";
 import { env } from "./config/env";
 import { routes } from "./http/routes";
