@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
-import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
+import { prisma } from "../libs/prisma";
+import { redis } from "../libs/redis";
 import { confirmParticipant } from "./controllers/confirm-participant-controller";
 import { confirmTrip } from "./controllers/confirm-trip-controller";
 import { createActivity } from "./controllers/create-activity-controller";
@@ -211,5 +212,57 @@ export async function routes(app: FastifyInstance) {
       },
     },
     fetchParticipants,
+  );
+
+  app.get(
+    "/helthcheck",
+    {
+      schema: {
+        response: {
+          200: z.object({
+            status: z.literal("ok"),
+            database: z.literal("ok"),
+            redis: z.literal("ok"),
+          }),
+          500: z.object({
+            status: z.literal("error"),
+            database: z.string(),
+            redis: z.string(),
+          }),
+        },
+      },
+    },
+    async (_request, reply) => {
+      let dbStatus = "ok";
+      let redisStatus = "ok";
+
+      try {
+        await prisma.$queryRaw`SELECT 1`;
+      } catch (err) {
+        dbStatus = `error: ${err instanceof Error ? err.message : "unknown"}`;
+      }
+
+      try {
+        await redis.ping();
+      } catch (err) {
+        redisStatus = `error: ${err instanceof Error ? err.message : "unknown"}`;
+      }
+
+      const isHealthy = dbStatus === "ok" && redisStatus === "ok";
+
+      if (isHealthy) {
+        return reply.status(200).send({
+          status: "ok",
+          database: dbStatus,
+          redis: redisStatus,
+        });
+      } else {
+        return reply.status(500).send({
+          status: "error",
+          database: dbStatus,
+          redis: redisStatus,
+        });
+      }
+    },
   );
 }
