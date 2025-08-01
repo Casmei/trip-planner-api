@@ -9,6 +9,9 @@ export const env = cleanEnv(process.env, {
   DATABASE_URL: str({
     default: "postgresql://calidade:calidade@localhost:5482/trip-planner",
   }),
+  REDIS_URL: str({
+    default: "redis://default:a@1:6380/0",
+  }),
   REDIS_HOST: str({ default: "localhost" }),
   REDIS_PORT: num({ default: 6379 }),
 });
