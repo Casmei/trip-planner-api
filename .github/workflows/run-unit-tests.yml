@@ -28,7 +28,7 @@ jobs:
               if: success() || failure() # run whether steps succeed or not
               with:
                 result-type: statements
-                badge-text: Unit Tests
+                badge-text: Coverage
                 upload-badge: false
                 
             - name: Commit changes
