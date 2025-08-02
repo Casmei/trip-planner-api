@@ -1,6 +1,7 @@
 ![README COVER](./img/Cover.jpg)
 [![Run Unit Tests](https://github.com/Casmei/trip-planner-api/actions/workflows/run-unit-tests.yml/badge.svg)](https://github.com/Casmei/trip-planner/actions/workflows/run-unit-tests.yml)
 ![Unit Testing Coverage](badge.svg)
+[![Monitor Status](https://kuma.kontact.com.br/api/badge/1/uptime)](https://kuma.kontact.com.br/status)
 [![Download Insomnia](https://img.shields.io/badge/Insomnia-black?logo=insomnia&logoColor=5849BE)](https://github.com/Casmei/trip-planner/raw/main/insomnia.yaml)
 
 # Trip Planner
