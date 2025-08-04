@@ -61,15 +61,15 @@ COPY --from=build /app/src/generated/prisma /app/src/generated/prisma
 # Copia outros arquivos (ex: .env, package.json) com as permissões corretas
 COPY --chown=api:nodejs . .
 
-# Define usuário não-root
+# Copia o script de migração com permissões adequadas
+COPY ./migrate.sh .
+RUN chmod +x ./migrate.sh
+
+# Agora define usuário não-root
 USER api
 
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-COPY ./migrate.sh .
-RUN chmod +x ./migrate.sh
-
 ENTRYPOINT ["./migrate.sh"]
-
