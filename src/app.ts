@@ -2,6 +2,7 @@ import fastify from "fastify";
 import "dotenv/config";
 import fastifySwagger from "@fastify/swagger";
 import scalarDocs from "@scalar/fastify-api-reference";
+import Sentry from "@sentry/node";
 import {
   jsonSchemaTransform,
   serializerCompiler,
@@ -13,6 +14,10 @@ import { routes } from "./http/routes";
 
 export const app = fastify({
   logger: true,
+});
+
+Sentry.init({
+  dsn: "https://ca100cf42e8d45d68b103b21649e55d1@glitchtip-m4koc0ogwc4k0csoks88g0wk.kontact.com.br/1",
 });
 
 app.setValidatorCompiler(validatorCompiler);
