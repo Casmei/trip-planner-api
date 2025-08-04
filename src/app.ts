@@ -31,7 +31,7 @@ app.register(fastifySwagger, {
         url: `http://localhost:${env.API_PORT}/api`,
       },
       {
-        url: `${env.API_HOST}:${env.API_PORT}/api`,
+        url: `${env.API_HOST}/api`,
       },
     ],
     tags: [
