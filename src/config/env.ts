@@ -5,12 +5,15 @@ export const env = cleanEnv(process.env, {
   API_HOST: str({ default: "http://localhost" }),
   FRONT_PORT: num({ default: 3001 }),
   FRONT_HOST: str({ default: "http://localhost" }),
-  NODE_ENV: str({ choices: ["development", "production"] }),
+  NODE_ENV: str({
+    choices: ["development", "production"],
+    default: "development",
+  }),
   DATABASE_URL: str({
     default: "postgresql://calidade:calidade@localhost:5482/trip-planner",
   }),
   REDIS_URL: str({
-    default: "redis://default:a@1:6380/0",
+    default: "redis://localhost:6379/0",
   }),
   REDIS_HOST: str({ default: "localhost" }),
   REDIS_PORT: num({ default: 6379 }),

@@ -21,18 +21,17 @@ RUN npm ci --omit=dev
 FROM base AS build
 WORKDIR /app
 
-# Copia os arquivos do projeto (inclusive prisma)
-COPY prisma ./prisma/
+# Copia os arquivos do projeto
 COPY . .
 
-# Instala todas as dependências (inclui as de dev para build e generate)
+# Instala dependências completas (inclui dev)
 RUN npm ci
 
-# Compila o projeto (assume que gera build/ com server.js)
+# Compila o projeto (server.ts + worker.ts)
 RUN npm run build
 
-# Gera Prisma Client com engines nativos corretos
-RUN npx prisma generate
+# Gera Prisma Client com base no novo caminho
+RUN npx prisma generate --schema=src/infrastructure/database/schema.prisma
 
 # ---------------------------
 # Runner final (produção)
@@ -46,30 +45,30 @@ RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 api && \
     chown api:nodejs .
 
-# Copia node_modules de prod
+# Copia node_modules de produção
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copia a pasta de build da aplicação
+# Copia a build (inclui server.js e worker.js)
 COPY --from=build /app/build ./build
 
-# Copia a pasta prisma (schema, migrations, etc)
-COPY --from=build /app/prisma ./prisma
+# Copia apenas a pasta do Prisma (schema, migrations, etc.)
+COPY --from=build /app/src/infrastructure/database ./src/infrastructure/database
 
-# 📌 COPIA O CLIENT DO PRISMA GERADO!
-COPY --from=build /app/src/generated/prisma /app/src/generated/prisma
-
-# Copia outros arquivos (ex: .env, package.json) com as permissões corretas
+# Copia arquivos adicionais com permissões corretas
 COPY --chown=api:nodejs . .
 
-# Copia o script de migração com permissões adequadas
+# Copia os scripts de entrada
 COPY ./migrate.sh .
-RUN chmod +x ./migrate.sh
+COPY ./worker.sh .
+RUN chmod +x ./migrate.sh ./worker.sh
 
-# Agora define usuário não-root
+# Define usuário não-root
 USER api
 
+# Expõe porta da API
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# ENTRYPOINT padrão (API)
 ENTRYPOINT ["./migrate.sh"]

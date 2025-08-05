@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/server.ts"], // ajuste para o ponto de entrada do seu app
+  entry: ["src/server.ts", "src/infrastructure/queue/workers/trip-worker.ts"], // ajuste para o ponto de entrada do seu app
   format: ["cjs"], // ou 'esm' se você estiver usando módulos ES
   target: "es2022",
   outDir: "build",

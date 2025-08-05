@@ -9,7 +9,7 @@ import {
 } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import { env } from "./config/env";
-import { routes } from "./http/routes";
+import { routes } from "./infrastructure/http/routes";
 
 export const app = fastify({
   logger: true,
