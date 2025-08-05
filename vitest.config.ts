@@ -6,13 +6,13 @@ export default defineConfig({
   test: {
     coverage: {
       reporter: ["text", "lcov", "html", "json-summary"],
-      include: ["src/use-cases/**/*.ts"],
+      include: ["src/core/use-cases/**/*.ts"],
       exclude: [
         "src/env/*.ts",
-        "src/use-cases/errors/**/*.ts",
+        "src/core/use-cases/errors/**/*.ts",
         "src/repositories/*.ts",
-        "src/repositories/**/*.ts",
-        "src/use-cases/factories/**/*.ts",
+        "src/infrastructure/repositories/**/*.ts",
+        "src/core/use-cases/factories/**/*.ts",
         "**/*.spec.ts",
         "**/*.test.ts",
         "node_modules",
